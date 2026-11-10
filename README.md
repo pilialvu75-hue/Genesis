@@ -6,6 +6,10 @@ Genesis è un progetto indipendente per **creare, valutare e migliorare modelli 
 
 ## Obiettivo immediato: Chimera 1 reale
 
+**Laboratorio implementato in PR:** [protocollo Chimera 1](docs/CHIMERA1_LAB.md) — CLI Python senza UI Genesis, validazione dati, benchmark e primo esperimento QLoRA; i test software non equivalgono ad addestramento riuscito.
+
+
+
 Produrre nel minor tempo possibile **un modello open-weight modificato/addestrato con pesi eseguibili propri**, verificando con benchmark riproducibili se migliora rispetto alla base. Un semplice orchestratore che interroga più modelli **non** equivale a una Chimera riuscita.
 
 - **Inizio ibrido:** modelli Local + Cloud possono assistere progettazione, coding e ricerca; i modelli Cloud >500B sono una preferenza iniziale, non un requisito che prevale sulla qualità misurata.

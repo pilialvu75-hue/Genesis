@@ -1,12 +1,12 @@
-# Roadmap Genesis — apprendere dalla costruzione di Gary Baldi
+# Roadmap Genesis — da Chimera sperimentale a Gary Baldi
 
 ## Decisione del 10 novembre 2026
 
-**Prima si costruisce e collauda Gary Baldi (Chimera 1) direttamente; solo dopo si implementa Genesis sulla base di ciò che funziona davvero.** Non creare un'app Genesis, una UI o un orchestratore completo come prerequisito di Gary Baldi.
+**Prima si costruiscono e collaudano Chimera 1, Chimera 2, Chimera 3… come modelli sperimentali; solo dopo si implementa Genesis sulla base di ciò che funziona davvero.** Non creare l'app Genesis come prerequisito delle Chimere.
 
-**Nome definitivo del modello:** **Gary Baldi**, in omaggio a Giuseppe Garibaldi. Il nome esprime una soglia ambiziosa: intelligenza generalista, capacità di trovare soluzioni creative e strategie efficaci in problemi nuovi, non soltanto prestazioni in un benchmark ristretto. La superiorità va **dimostrata**, non dichiarata.
+**Regola dei nomi (confermata dall'utente):** fino alla maturità desiderata si utilizza **Chimera 1 → Chimera 2 → Chimera 3 → …**. Solo quando una Chimera dimostra capacità generaliste, ingegnosità, ragionamento e affidabilità al livello concordato, ottiene il nome d'onore **Gary Baldi**, in omaggio a Giuseppe Garibaldi, iniziando da **Gary Baldi 0.0.1 → 0.0.2 → 0.0.3…**. Il numero non determina da solo la promozione; nessuna data o soglia di generazione è imposta anticipatamente. La superiorità deve essere dimostrata con prove indipendenti.
 
-## Gary Baldi — primo modello reale
+## Chimera 1, 2, 3… — modelli sperimentali reali
 
 ### 1. Obiettivo
 
@@ -30,11 +30,11 @@ Costruire il modello generalista più capace possibile entro le risorse disponib
 
 Questa è una costruzione ibrida originale **basata su pesi preaddestrati e parti nuove**; non è la pretesa di addestrare un foundation model interamente da zero. Quello sarà un percorso futuro distinto: **Genesis Origin**.
 
-### 3. Evidenze richieste per dire «Gary Baldi 1 esiste»
+### 3. Evidenze richieste per dire «Chimera 1 esiste»
 
 1. Pesi/adattatori nuovi, caricabili, con hash e versioni; configurazione, provenienza e licenze tracciate.
 2. Inferenza riuscita **reale** sull'ASUS, non risposte simulate, con RAM, VRAM, latenza, token/s e stabilità misurati.
-3. Benchmark confrontabili eseguiti su baseline, Gary Baldi e, ove applicabile, candidati alternativi: ragionamento, coding, matematica, linguaggio, affidabilità, generalizzazione e creatività/strategia. Set di valutazione separati dai dati d'addestramento.
+3. Benchmark confrontabili eseguiti su baseline, Chimera e, ove applicabile, candidati alternativi: ragionamento, coding, matematica, linguaggio, affidabilità, generalizzazione e creatività/strategia. Set di valutazione separati dai dati d'addestramento.
 4. Report riproducibile con errori e regressioni, non solo esempi selezionati.
 5. Promozione del modello per un ruolo soltanto se migliora significativamente i criteri di valore definiti per quel ruolo senza regressioni critiche; rollback sempre possibile.
 
@@ -47,9 +47,13 @@ Il primo esperimento può fallire o risultare meno capace del modello di partenz
 - Convalidare pesi, misure e miglioramenti, poi ripetere o allargare. Non costruire prima UI, sistemi di plugin complessi o infrastrutture non necessarie.
 - Portare in Genesis solo tecniche dimostrate utili: ricerca e selezione modelli, registro licenze, training, gestione risorse, benchmark, versioning, promozione e ripristino.
 
-## Genesis — dopo le lezioni di Gary Baldi
+## Quando nasce Gary Baldi
 
-Genesis sarà il sistema capace di **ripetere e migliorare autonomamente** il procedimento usato per creare Gary Baldi. Architettura obiettivo:
+Il passaggio dal nome sperimentale **Chimera N** a **Gary Baldi 0.0.1** è una decisione di promozione basata su test e non sul conteggio delle generazioni. Le release successive seguono **0.0.2, 0.0.3, …**, mantenendo lo storico Chimera e la possibilità di rollback. Una Gary Baldi iniziale può ancora essere migliorata: il nome non significa sviluppo terminato.
+
+## Genesis — dalle lezioni di Chimera e Gary Baldi
+
+Genesis sarà il sistema capace di **ripetere e migliorare autonomamente** il procedimento usato per creare le Chimere e, in seguito, Gary Baldi. Architettura obiettivo:
 - **Core di orchestrazione** Local/Cloud con scelta basata su qualità, velocità, costi e risorse reali; possibilità di riusare componenti maturi AIVEXUS.
 - **Chimera Lab** per modelli open-weight, fusioni compatibili, distillazione e training.
 - **Librerie indipendenti e condivise**, consultabili contemporaneamente da più modelli tramite API/permessi, per moduli, conoscenze/RAG, dataset e cataloghi pesi.
@@ -63,9 +67,10 @@ Genesis sarà il sistema capace di **ripetere e migliorare autonomamente** il pr
 
 ## Stato
 
-- [x] Visione di Gary Baldi e distinzione dal futuro Genesis documentate.
+- [x] Visione Chimera → Gary Baldi e distinzione dal futuro Genesis documentate.
 - [ ] Baseline e modelli sorgente selezionati e provati.
 - [ ] Primo addestramento/fusione ibrida eseguito.
-- [ ] Pesi reali di Gary Baldi prodotti e testati.
+- [ ] Pesi reali di Chimera 1 prodotti e testati.
+- [ ] Criteri di maturità verificati prima della denominazione Gary Baldi 0.0.1.
 - [ ] Prestazioni e superiorità rispetto alla baseline documentate.
 - [ ] Lezioni convertite in requisiti e codice per Genesis Windows/Linux.

@@ -19,6 +19,8 @@ train = [
     "safetensors>=0.4",
 ]
 
+data = ["datasets>=3.0,<5"]
+
 [project.scripts]
 chimera = "chimera_lab.cli:main"
 

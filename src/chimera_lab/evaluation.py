@@ -7,7 +7,7 @@ from datetime import datetime, timezone
 
 from .data import read_jsonl, sha256_file
 from .engine import load_model, predict
-from .metrics import matches_expected, summarise, write_json
+from .metrics import matches_expected, matches_final_number, summarise, write_json
 
 
 def evaluate(source: str, eval_file: str, output: str, quantization: str, max_new_tokens: int) -> dict:
@@ -20,7 +20,7 @@ def evaluate(source: str, eval_file: str, output: str, quantization: str, max_ne
         try:
             response, generated = predict(model, tokenizer, sample["prompt"], max_new_tokens)
             row.update({"response": response, "new_tokens": generated,
-                        "correct": matches_expected(response, sample["expected"])})
+                        "correct": matches_final_number(response, sample["expected"]) if sample.get("scoring") == "final_number" else matches_expected(response, sample["expected"])})
         except (RuntimeError, ValueError) as exc:
             row.update({"error": f"{type(exc).__name__}: {exc}", "correct": None})
         row["seconds"] = round(time.perf_counter() - started, 4)
@@ -31,7 +31,7 @@ def evaluate(source: str, eval_file: str, output: str, quantization: str, max_ne
         "eval_sha256": sha256_file(eval_file),
         "generation": {"max_new_tokens": max_new_tokens, "do_sample": False},
         "metrics": summarise(rows), "samples": rows,
-        "disclaimer": "Diagnostic exact-match only; NOT evidence of general intelligence or model superiority.",
+        "disclaimer": "Diagnostic final-answer/exact-match only; NOT evidence of general intelligence or model superiority.",
     }
     write_json(output, report)
     return report

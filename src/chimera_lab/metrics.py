@@ -16,6 +16,19 @@ def matches_expected(response: str, expected: list[str]) -> bool:
     return any(normalise(response) == normalise(choice) for choice in expected)
 
 
+
+def matches_final_number(response: str, expected: list[str]) -> bool:
+    """Only score a separately labelled final answer, not arbitrary numbers in reasoning."""
+    match = re.findall(r"(?im)^\s*(?:Answer|Risposta|Réponse)\s*:\s*(-?\d[\d,]*(?:\.\d+)?)\s*$", response)
+    if not match:
+        return False
+    from decimal import Decimal, InvalidOperation
+    try:
+        actual = Decimal(match[-1].replace(",", ""))
+        return any(actual == Decimal(value.replace(",", "")) for value in expected)
+    except InvalidOperation:
+        return False
+
 def summarise(rows: list[dict]) -> dict:
     good = [row for row in rows if not row.get("error")]
     scored = [row for row in good if row.get("correct") is not None]

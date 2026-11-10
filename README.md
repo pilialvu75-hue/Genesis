@@ -6,6 +6,10 @@ Genesis è un progetto indipendente per **creare, valutare e migliorare modelli 
 
 ## Obiettivo immediato: Chimera 1 reale
 
+**Dati concreti per il primo addestramento:** [Aya + OASST1 + GSM8K + MetaMathQA e procedimento](docs/CHIMERA1_TRAINING_DATA.md). Lo script di preparazione usa dataset pubblici solo quando viene eseguito. Nessun nuovo peso addestrato è ancora disponibile.
+
+
+
 **Laboratorio implementato in PR:** [protocollo Chimera 1](docs/CHIMERA1_LAB.md) — CLI Python senza UI Genesis, validazione dati, benchmark e primo esperimento QLoRA; i test software non equivalgono ad addestramento riuscito.
 
 

@@ -20,3 +20,7 @@ checkpoints/
 .env.*
 !.env.example
 *.log
+
+# Locally downloaded SFT data, not repository source
+data/chimera1_*.jsonl
+data/chimera1_*.manifest.json

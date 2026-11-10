@@ -14,6 +14,14 @@ Verificare sull'ASUS Windows 11 la possibilità di **eseguire e, se sostenibile,
 - I download da Hugging Face sono gratuiti ma possono essere grandi. Prima di scaricare qualsiasi modello, verificare lo spazio libero e comunicare modello/dimensione stimata. Non scaricare 4B e 1.7B entrambi senza necessità.
 - Le misure di un set dimostrativo di 4 domande **non provano** superiorità e non permettono la promozione a Gary Baldi.
 
+## Scelta di Work e risparmio della quota inclusa
+
+In Work Desktop con accesso locale autorizzato, per la **prima diagnosi hardware e raccolta dei log** usare un modello economico, preferibilmente **GPT-6 Luna** se disponibile, a velocità **Standard**. Per problemi tecnici complessi, provare **GPT-6.1 Sol** (o la versione Sol effettivamente disponibile); riservare **Astra** a blocchi particolarmente difficili, non per l'esecuzione ordinaria. **Codex** è più indicato di Work per modifiche di codice e repository.
+
+Usare attività brevi, senza parallelizzare agenti superflui. Controllare **Impostazioni → Utilizzo** e fermarsi se si è vicini al limite; non acquistare crediti e non abilitare sovrapprezzi. La quota Work inclusa nel piano può comunque essere consumata, anche se non si compra nulla.
+
+**Se Chimera 1 non può avanzare:** documentare il blocco; svolgere attività di preparazione **strettamente utili al modello**. Solo quando anche queste sono esaurite lavorare sul laboratorio riutilizzabile; Genesis soltanto come ultima opzione. Tornare subito al modello quando l'ASUS/CUDA diventa disponibile.
+
 ## Fase 1 — ispezione hardware, senza download e senza addestramento
 
 Nel desktop Work con accesso all'ASUS:

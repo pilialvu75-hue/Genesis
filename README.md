@@ -1,8 +1,10 @@
 # Genesis — Chimera / Origin
 
+> **Decisione di progetto:** prima realizzare direttamente **Gary Baldi (Chimera 1)**, modello generalista ibrido con una parte di pesi/componenti nuovi addestrati da zero e una parte derivata da modelli open-weight. **Non costruire prima l'app Genesis.** Usare i risultati di Gary Baldi per progettare successivamente Genesis su Windows e Linux. [Roadmap completa](docs/ROADMAP_GARY_BALDI_GENESIS.md).
+
 Genesis è un progetto indipendente per **creare, valutare e migliorare modelli di intelligenza artificiale**. Riusa, quando utile, componenti collaudati di [AIVEXUS](https://github.com/pilialvu75-hue/Ai-orchestrator-riserva) senza dipenderne dall'interfaccia o modificare il suo sviluppo prioritario.
 
-## Obiettivo immediato: Chimera 1 reale
+## Obiettivo immediato: Gary Baldi (Chimera 1) reale
 
 Produrre nel minor tempo possibile **un modello open-weight modificato/addestrato con pesi eseguibili propri**, verificando con benchmark riproducibili se migliora rispetto alla base. Un semplice orchestratore che interroga più modelli **non** equivale a una Chimera riuscita.
 
@@ -29,4 +31,4 @@ Le librerie esterne accrescono le conoscenze consultabili, **non sostituiscono**
 3. Eseguire **baseline e Chimera candidata** sugli stessi test, registrando qualità, velocità, RAM/VRAM e stabilità.
 4. Pubblicare risultati e artefatti verificabili, senza proclamare superiore un modello che non supera i test.
 
-**Stato attuale:** avvio del repository. Non esiste ancora un modello Chimera 1 addestrato e validato.
+**Stato attuale:** roadmap di Gary Baldi documentata; nessun modello Gary Baldi è stato ancora addestrato e validato. Genesis è programmato dopo il primo collaudo, non è il prerequisito.

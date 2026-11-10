@@ -43,7 +43,7 @@ jobs:
       - name: Verify real GGUF inference under the AIVEXUS pinned runtime
         run: |
           mkdir -p outputs
-          timeout 120s pinned-llama-cpp/build/bin/llama-cli -m inputs/gguf/chimera1-pilot-qwen3-0.6b-q4_k_m.gguf -p 'Rispondi brevemente in italiano: a che cosa serve un test?' -n 60 -c 1024 -t 4 --temp 0 > outputs/pinned_llama_inference.txt 2>&1
+          timeout 120s pinned-llama-cpp/build/bin/llama-cli -m inputs/gguf/chimera1-pilot-qwen3-0.6b-q4_k_m.gguf -p 'Rispondi brevemente in italiano: a che cosa serve un test?' -n 48 -c 1024 -t 4 --temp 0 --single-turn --simple-io </dev/null > outputs/pinned_llama_inference.txt 2>&1
           test -s outputs/pinned_llama_inference.txt
           tail -50 outputs/pinned_llama_inference.txt
       - name: Save provenance and test verdict

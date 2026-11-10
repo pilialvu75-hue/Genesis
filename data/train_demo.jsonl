@@ -1,0 +1,4 @@
+{"id":"train-it-1","prompt":"Spiega in italiano che cosa significa avere un'ipotesi verificabile.","response":"Un'ipotesi verificabile è un'affermazione che può essere controllata con osservazioni o esperimenti e che potrebbe essere smentita dai risultati."}
+{"id":"train-fr-1","prompt":"En français, comment peut-on vérifier une affirmation scientifique ?","response":"On formule une prédiction mesurable, on recueille des données indépendantes et on compare les résultats à la prédiction."}
+{"id":"train-en-1","prompt":"Explain briefly how to test whether a program is deterministic.","response":"Run the program multiple times with identical inputs and the same controlled environment, then compare its outputs."}
+{"id":"train-it-2","prompt":"Come confronti due soluzioni informatiche senza preferenze personali?","response":"Definisco criteri misurabili, provo entrambe con gli stessi casi e registro prestazioni, correttezza e consumi."}

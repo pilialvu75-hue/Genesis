@@ -1,0 +1,4 @@
+{"id":"eval-it-1","prompt":"Quanto fa 17 più 25? Rispondi solo con il numero.","expected":["42"]}
+{"id":"eval-fr-1","prompt":"Quel est le résultat de 9 multiplié par 7 ? Réponds seulement par le nombre.","expected":["63"]}
+{"id":"eval-en-1","prompt":"What is the Python result of len('abc')? Reply with the number only.","expected":["3"]}
+{"id":"eval-it-2","prompt":"Qual è la capitale della Francia? Scrivi soltanto il nome.","expected":["Parigi","Paris"]}

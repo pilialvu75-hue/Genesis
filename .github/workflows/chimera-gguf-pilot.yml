@@ -20,7 +20,7 @@ jobs:
       HF_HUB_DISABLE_TELEMETRY: '1'
       TOKENIZERS_PARALLELISM: 'false'
       OMP_NUM_THREADS: '4'
-      HF_HOME: '${{ runner.temp }}/hf-cache'
+      HF_HOME: '${{ github.workspace }}/.hf-cache'
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5

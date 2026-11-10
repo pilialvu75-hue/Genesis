@@ -1,0 +1,12 @@
+{"id":"heldout-001","language":"it","prompt":"Quanto fa 19 più 18? Rispondi solo con il numero.","expected_number":"37"}
+{"id":"heldout-002","language":"it","prompt":"Calcola 8 × 13. Scrivi soltanto il risultato numerico.","expected_number":"104"}
+{"id":"heldout-003","language":"it","prompt":"Quante ore sono 4 giorni interi? Rispondi solo con il numero.","expected_number":"96"}
+{"id":"heldout-004","language":"fr","prompt":"Combien font 27 plus 16 ? Réponds uniquement par le nombre.","expected_number":"43"}
+{"id":"heldout-005","language":"fr","prompt":"Calcule 12 multiplié par 8. Donne uniquement le résultat numérique.","expected_number":"96"}
+{"id":"heldout-006","language":"fr","prompt":"Combien de minutes y a-t-il dans 3 heures ? Réponds seulement par le nombre.","expected_number":"180"}
+{"id":"heldout-007","language":"en","prompt":"What is 23 plus 29? Reply with the number only.","expected_number":"52"}
+{"id":"heldout-008","language":"en","prompt":"What is 14 times 6? Reply with the number only.","expected_number":"84"}
+{"id":"heldout-009","language":"en","prompt":"How many seconds are in 4 minutes? Reply with the number only.","expected_number":"240"}
+{"id":"heldout-010","language":"it","prompt":"Perché i dati del test devono essere separati dall'addestramento? Rispondi in una frase."}
+{"id":"heldout-011","language":"fr","prompt":"Explique en une phrase pourquoi on vérifie les sources d'un modèle."}
+{"id":"heldout-012","language":"en","prompt":"Explain in one sentence how to report an unsuccessful experiment."}

@@ -1,0 +1,68 @@
+name: Chimera 1 - zero-cost baseline vs trained pilot
+on:
+  push:
+    branches: ['chimera/006-heldout-baseline-comparison']
+    paths:
+      - '.github/workflows/chimera-baseline-eval.yml'
+      - 'scripts/chimera1/evaluate_base_vs_pilot.py'
+      - 'data/chimera1_holdout_smoke.jsonl'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  compare-on-free-cpu:
+    runs-on: ubuntu-latest
+    timeout-minutes: 65
+    env:
+      HF_HUB_DISABLE_XET: '1'
+      TOKENIZERS_PARALLELISM: 'false'
+      OMP_NUM_THREADS: '4'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Download trained GGUF from successful pilot (SHA verified)
+        uses: actions/download-artifact@v4
+        with:
+          name: chimera1-pilot-gguf-q4-k-m
+          run-id: '42900959737'
+          github-token: '${{ github.token }}'
+          path: inputs/pilot
+      - name: Verify trained model identity
+        run: echo '3afebd7f8b1f44458b9743c1354acd1e00bb33c58f6eec3b3341aa8ed3887a29  inputs/pilot/chimera1-pilot-qwen3-0.6b-q4_k_m.gguf' | sha256sum -c
+      - name: Checkout exact AIVEXUS llama.cpp source
+        run: |
+          git init llama.cpp
+          git -C llama.cpp remote add origin https://github.com/ggerganov/llama.cpp.git
+          git -C llama.cpp fetch --depth 1 origin dded58b4505b33f0ffa2dcd2d5879ce8ad18260a
+          git -C llama.cpp checkout --detach FETCH_HEAD
+      - name: Build llama.cpp quantization and inference CPU
+        run: |
+          cmake -S llama.cpp -B llama.cpp/build -DLLAMA_CURL=OFF -DLLAMA_BUILD_TESTS=OFF -DLLAMA_BUILD_EXAMPLES=ON -DCMAKE_BUILD_TYPE=Release
+          cmake --build llama.cpp/build --target llama-quantize llama-cli --parallel 4
+      - name: Install free HuggingFace model download and conversion dependencies
+        run: |
+          python -m pip install --no-cache-dir torch==2.6.0 --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install --no-cache-dir -r llama.cpp/requirements/requirements-convert_legacy_llama.txt huggingface_hub
+      - name: Download unchanged Qwen3-0.6B original weights
+        run: |
+          python -c "from huggingface_hub import snapshot_download; snapshot_download(repo_id='Qwen/Qwen3-0.6B', local_dir='inputs/qwen-original', allow_patterns=['*.json','*.safetensors','*.model','tokenizer*','merges.txt','vocab.json'])"
+      - name: Convert original model using same GGUF tools
+        run: python llama.cpp/convert_hf_to_gguf.py inputs/qwen-original --outfile outputs/qwen-original-f16.gguf --outtype f16
+      - name: Quantise unchanged base with same Q4_K_M scheme
+        run: llama.cpp/build/bin/llama-quantize outputs/qwen-original-f16.gguf outputs/qwen-original-q4_k_m.gguf Q4_K_M
+      - name: Evaluate exact same held-out questions with both models
+        run: |
+          python scripts/chimera1/evaluate_base_vs_pilot.py --binary llama.cpp/build/bin/llama-cli --base outputs/qwen-original-q4_k_m.gguf --candidate inputs/pilot/chimera1-pilot-qwen3-0.6b-q4_k_m.gguf --out outputs/base_vs_pilot.json
+      - name: Upload report without model binaries
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: chimera1-heldout-base-vs-pilot-evaluation
+          path: outputs/base_vs_pilot.json
+          retention-days: 30
+          if-no-files-found: warn

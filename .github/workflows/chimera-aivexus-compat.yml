@@ -1,0 +1,68 @@
+name: Chimera 1 - AIVEXUS pinned llama.cpp GGUF compatibility
+on:
+  push:
+    branches: ['chimera/005-aivexus-runtime-compat']
+    paths:
+      - '.github/workflows/chimera-aivexus-compat.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  runtime-compatibility:
+    runs-on: ubuntu-latest
+    timeout-minutes: 50
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download REAL pilot GGUF previously generated and verified
+        uses: actions/download-artifact@v4
+        with:
+          name: chimera1-pilot-gguf-q4-k-m
+          run-id: '42900959737'
+          github-token: '${{ github.token }}'
+          path: inputs/gguf
+      - name: Verify complete GGUF file SHA256 against verified manifest
+        run: |
+          test -f inputs/gguf/chimera1-pilot-qwen3-0.6b-q4_k_m.gguf
+          echo '3afebd7f8b1f44458b9743c1354acd1e00bb33c58f6eec3b3341aa8ed3887a29  inputs/gguf/chimera1-pilot-qwen3-0.6b-q4_k_m.gguf' | sha256sum --check
+          test -s inputs/gguf/gguf-manifest.json
+          ls -lh inputs/gguf/
+      - name: Checkout exactly the llama.cpp submodule pinned by AIVEXUS
+        run: |
+          git init pinned-llama-cpp
+          git -C pinned-llama-cpp remote add origin https://github.com/ggerganov/llama.cpp.git
+          git -C pinned-llama-cpp fetch --depth 1 origin dded58b4505b33f0ffa2dcd2d5879ce8ad18260a
+          git -C pinned-llama-cpp checkout --detach FETCH_HEAD
+          test "$(git -C pinned-llama-cpp rev-parse HEAD)" = 'dded58b4505b33f0ffa2dcd2d5879ce8ad18260a'
+      - name: Build CPU-only llama-cli at AIVEXUS submodule revision
+        run: |
+          cmake -S pinned-llama-cpp -B pinned-llama-cpp/build -DLLAMA_CURL=OFF -DLLAMA_BUILD_TESTS=OFF -DLLAMA_BUILD_EXAMPLES=ON -DCMAKE_BUILD_TYPE=Release
+          cmake --build pinned-llama-cpp/build --target llama-cli --parallel 4
+      - name: Verify real GGUF inference under the AIVEXUS pinned runtime
+        run: |
+          mkdir -p outputs
+          timeout 120s pinned-llama-cpp/build/bin/llama-cli -m inputs/gguf/chimera1-pilot-qwen3-0.6b-q4_k_m.gguf -p 'Rispondi brevemente in italiano: a che cosa serve un test?' -n 60 -c 1024 -t 4 --temp 0 > outputs/pinned_llama_inference.txt 2>&1
+          test -s outputs/pinned_llama_inference.txt
+          tail -50 outputs/pinned_llama_inference.txt
+      - name: Save provenance and test verdict
+        run: |
+          cat > outputs/aivexus_compatibility.json <<'JSON'
+          {
+            "status": "PASS_PINNED_LLAMA_CPP_CPU_ONLY",
+            "model_status": "EARLY_TECHNICAL_PILOT_NOT_FINAL_CHIMERA1",
+            "tested_runtime_commit": "dded58b4505b33f0ffa2dcd2d5879ce8ad18260a",
+            "tested_file_sha256": "3afebd7f8b1f44458b9743c1354acd1e00bb33c58f6eec3b3341aa8ed3887a29",
+            "scope": "Linux CPU built from same llama.cpp source as AIVEXUS submodule. Not a test of Flutter, Windows package, Android FFI or S24 FE RAM.",
+            "followup": "Isolated manual import on AIVEXUS Windows, no replacement of existing model or APK installation."
+          }
+          JSON
+      - name: Upload genuine result logs, no duplicate model upload
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: chimera1-pilot-aivexus-pinned-runtime-proof
+          path: outputs/
+          retention-days: 30
+          if-no-files-found: error

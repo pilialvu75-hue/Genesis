@@ -1,0 +1,78 @@
+name: Chimera 1 - zero-cost GGUF conversion and CPU inference
+on:
+  push:
+    branches: ['chimera/004-gguf-aivexus-smoke']
+    paths:
+      - '.github/workflows/chimera-gguf-pilot.yml'
+      - 'scripts/chimera1/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  build-gguf:
+    runs-on: ubuntu-latest
+    timeout-minutes: 75
+    env:
+      HF_HUB_DISABLE_XET: '1'
+      HF_HUB_DISABLE_TELEMETRY: '1'
+      TOKENIZERS_PARALLELISM: 'false'
+      OMP_NUM_THREADS: '4'
+      HF_HOME: '${{ github.workspace }}/.hf-cache'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Get verified REAL LoRA weights from previous GitHub Actions run
+        uses: actions/download-artifact@v4
+        with:
+          name: chimera1-cpu-proof-real-weights
+          run-id: '42866886858'
+          github-token: '${{ github.token }}'
+          path: inputs/adapter
+      - name: Inspect local runner disk and RAM
+        run: df -h . && free -h && ls -lh inputs/adapter/
+      - name: Install free CPU ML dependencies
+        run: |
+          python -m pip install --no-cache-dir torch==2.5.1 --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install --no-cache-dir transformers==4.57.1 peft==0.17.1 accelerate==1.11.0 safetensors==0.6.2
+      - name: Check SHA256 then merge LoRA with Apache 2.0 base
+        run: python -u scripts/chimera1/merge_pilot_adapter.py
+      - name: Fetch pinned llama.cpp version with Qwen3 GGUF conversion
+        run: |
+          git init llama.cpp
+          git -C llama.cpp remote add origin https://github.com/ggml-org/llama.cpp.git
+          git -C llama.cpp fetch --depth 1 origin 582eab718608b99792286729890aac1675547c29
+          git -C llama.cpp checkout --detach FETCH_HEAD
+          echo "llama.cpp commit: $(git -C llama.cpp rev-parse HEAD)"
+      - name: Install GGUF conversion dependencies
+        run: python -m pip install --no-cache-dir -r llama.cpp/requirements/requirements-convert_legacy_llama.txt
+      - name: Convert merged Chimera pilot to GGUF F16
+        run: python llama.cpp/convert_hf_to_gguf.py outputs/merged --outfile outputs/chimera1-pilot-f16.gguf --outtype f16
+      - name: Build CPU llama.cpp inference and quantization tools
+        run: |
+          cmake -S llama.cpp -B llama.cpp/build -DLLAMA_CURL=OFF -DLLAMA_BUILD_TESTS=OFF -DLLAMA_BUILD_EXAMPLES=ON -DCMAKE_BUILD_TYPE=Release
+          cmake --build llama.cpp/build --target llama-cli llama-quantize --parallel 4
+          ls -lh llama.cpp/build/bin
+      - name: Quantize for AIVEXUS GGUF runtime
+        run: llama.cpp/build/bin/llama-quantize outputs/chimera1-pilot-f16.gguf outputs/chimera1-pilot-qwen3-0.6b-q4_k_m.gguf Q4_K_M
+      - name: Actually run llama.cpp inference on the quantised GGUF
+        run: |
+          timeout 120s llama.cpp/build/bin/llama-cli -m outputs/chimera1-pilot-qwen3-0.6b-q4_k_m.gguf -p 'In italiano, spiega in una frase a cosa serve verificare un esperimento.' -n 48 -c 1024 -t 4 --temp 0 > outputs/llama_inference.txt 2>&1
+          tail -35 outputs/llama_inference.txt
+      - name: Validate model bytes and create provenance/sha256 report
+        run: python scripts/chimera1/verify_gguf.py
+      - name: Upload GGUF and verified proof report (pilot, not final model)
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: chimera1-pilot-gguf-q4-k-m
+          path: |
+            outputs/chimera1-pilot-qwen3-0.6b-q4_k_m.gguf
+            outputs/gguf-manifest.json
+            outputs/llama_inference.txt
+          retention-days: 30
+          if-no-files-found: error

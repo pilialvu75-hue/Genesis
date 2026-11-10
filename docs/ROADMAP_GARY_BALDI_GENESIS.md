@@ -51,6 +51,30 @@ Il primo esperimento può fallire o risultare meno capace del modello di partenz
 
 Il passaggio dal nome sperimentale **Chimera N** a **Gary Baldi 0.0.1** è una decisione di promozione basata su test e non sul conteggio delle generazioni. Le release successive seguono **0.0.2, 0.0.3, …**, mantenendo lo storico Chimera e la possibilità di rollback. Una Gary Baldi iniziale può ancora essere migliorata: il nome non significa sviluppo terminato.
 
+## Gary Baldi pubblico — chat gratuita e laboratorio di capacità reali (fase successiva)
+
+**Decisione 10 novembre 2026:** una volta che un modello Chimera avrà superato i criteri e ottenuto il nome **Gary Baldi 0.0.1**, predisporre un **sito Web con chat pubblica gratuita**. Non avviare lo sviluppo del sito come prerequisito di Chimera 1.
+
+**Visione:** un «piccolo ChatGPT» generalista, proporzionato alle risorse disponibili, che le persone possano usare gratuitamente per compiti reali. Il sito ha **due funzioni inseparabili**: servizio utile agli utenti e laboratorio di valutazione sul campo. La chat non deve essere presentata come equivalente a ChatGPT in funzioni o qualità prima di averne dimostrato le capacità.
+
+### Capacità da valutare e ampliare
+
+- Conversazione naturale, ragionamento, creatività, capacità strategica e adattamento alle richieste nuove.
+- Codice, matematica, spiegazioni, documenti e lingue (italiano/francese/inglese e progressivamente altre).
+- Quando tecnicamente disponibili e realmente collaudati: navigazione/ricerca, strumenti, documenti, immagini, audio e altre funzioni multimodali.
+- Un **modello principale Gary Baldi** con librerie esterne separate e condivise; distinguere nella telemetria le capacità proprie del modello da quelle fornite dagli strumenti, dalle librerie e da eventuali servizi Cloud.
+
+### Laboratorio pubblico, verifiche e rispetto delle persone
+
+- Misurare in forma aggregata: qualità delle risposte (feedback volontario e valutazioni indipendenti), errori, allucinazioni, latenze, disponibilità, token/s, costo per richiesta, RAM/VRAM, saturazione e stabilità.
+- Usare benchmark **non pubblicati nei dataset di addestramento**, test di regressione e prove reali per identificare lacune e priorità.
+- Offrire feedback volontario e segnalazione di problemi. **Non usare automaticamente le chat personali per addestramento**: informativa chiara, consenso separato se necessario, minimizzazione, retention e cancellazione, protezione dei dati personali, verifica GDPR e obblighi pertinenti prima dell'apertura pubblica.
+- Difese operative: limiti d'uso per contenere costi e abusi, moderazione proporzionata, protezione da prompt injection e richieste pericolose, isolamento degli strumenti, backup/rollback. Nessuna promessa di servizio illimitato: **gratuito per gli utenti non significa calcolo gratuito**.
+- Accesso aperto progressivo (prima piccolo gruppo e collaudo di carico, poi chat pubblica), senza imporre all'utente di pagare per il normale uso previsto.
+- Pubblicare in modo trasparente capacità, limiti e progressi; non equiparare numero di utenti o valutazioni positive a superiorità scientificamente dimostrata.
+
+**Dopo il periodo di test pubblico:** valutare con dati reali se proseguire come servizio aperto, rilasciare i pesi, sviluppare altre versioni o scegliere una strategia diversa. **Decisione rimandata**, senza assumere ora licenze di rilascio dei pesi o modello commerciale.
+
 ## Genesis — dalle lezioni di Chimera e Gary Baldi
 
 Genesis sarà il sistema capace di **ripetere e migliorare autonomamente** il procedimento usato per creare le Chimere e, in seguito, Gary Baldi. Architettura obiettivo:
@@ -74,3 +98,4 @@ Genesis sarà il sistema capace di **ripetere e migliorare autonomamente** il pr
 - [ ] Criteri di maturità verificati prima della denominazione Gary Baldi 0.0.1.
 - [ ] Prestazioni e superiorità rispetto alla baseline documentate.
 - [ ] Lezioni convertite in requisiti e codice per Genesis Windows/Linux.
+- [ ] Dopo la promozione a Gary Baldi: predisporre chat pubblica gratuita e laboratorio con privacy, costi, valutazioni e protezioni validate.

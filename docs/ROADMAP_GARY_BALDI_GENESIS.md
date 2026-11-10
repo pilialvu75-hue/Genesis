@@ -14,6 +14,20 @@
 
 **3. GENESIS INFINE.** Una volta provato il procedimento, costruire il software autonomo Genesis per Windows e Linux, sfruttando esperienza e componenti validati.
 
+## Principio di addestramento: qualità prima della velocità (10/11/2026)
+
+**Decisione vincolante:** scegliere metodi e dati che producano le **migliori capacità generaliste dimostrabili** per le risorse effettivamente disponibili, anche se richiedono più tempo. La rapidità serve per ottenere feedback, **non** è un criterio superiore alla qualità. La prima Chimera può nascere da un esperimento piccolo, ma non va proclamata riuscita perché sono stati eseguiti pochi step LoRA.
+
+- **Dati prima di tutto:** provenienza e licenze verificabili, qualità e varietà elevate (ragionamento, codice, matematica, lingue, conoscenza, uso di strumenti); filtraggio, deduplicazione, controllo di errori e distribuzione delle difficoltà.
+- **Tecniche selezionate per evidenza, non per moda:** baseline e ablation test tra fine-tuning completo se sostenibile, LoRA/QLoRA, distillazione autorizzata, fusione architetturalmente compatibile, supervised fine-tuning (SFT) e successive ottimizzazioni di preferenze o reinforcement learning con ricompense verificabili, **solo quando appropriate**. Nessuna tecnica è universalmente migliore.
+- **Insegnanti forti Local/Cloud:** sfruttare modelli esterni per generare o verificare dati soltanto dove licenze e termini lo permettono; combinare più fonti e verifiche indipendenti per limitare gli errori insegnati.
+- **Training serio:** split di test non contaminati, curriculum e mistura dei dati motivati, monitoraggio loss/overfitting, checkpoint, seed e parametri tracciati; possibilità di interrompere o riprendere senza perdere lavoro.
+- **Confronti su problemi nuovi:** benchmark e prove pratiche ripetibili su ragionamento, matematica, coding, multilingua, creatività e robustezza, oltre a latency/VRAM/RAM/costo. Verificare anche regressioni e generalizzazione. Nessuna promozione da microbenchmark.
+- **Scelta secondo vincoli reali:** se l'ASUS non basta per l'addestramento migliore, usare risorse Cloud/GPU più capaci nei limiti del budget; prevedere una variante d'inferenza efficiente per l'ASUS, senza imporre la dimensione dell'ASUS ai modelli futuri.
+- **Conferma per generazione:** conservare baseline, pesi e report delle candidate; promuovere solo miglioramenti reali, accettando un esperimento più lungo o una generazione scartata quando necessario.
+
+**Ordine immutato:** prima pesi Chimera reali, poi laboratorio strutturato, infine Genesis Windows/Linux.
+
 ### Apprendimento dai video — possibilità futura, non blocco per Chimera 1
 
 - **Prima modalità (text-only):** ricavare da filmati autorizzati trascrizioni e descrizioni accurate, trasformandole in esempi di addestramento. Il modello impara dai **testi**, non vede il video né comprende il movimento direttamente.

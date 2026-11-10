@@ -14,6 +14,19 @@
 
 **3. GENESIS INFINE.** Una volta provato il procedimento, costruire il software autonomo Genesis per Windows e Linux, sfruttando esperienza e componenti validati.
 
+## Regola di avanzamento quando il modello è bloccato — 10/11/2026
+
+**Priorità sempre: MODELLO > LABORATORIO > GENESIS.**
+
+1. **MODELLO — massimo sforzo.** Tutto ciò che produce o migliora i pesi reali Chimera 1, i dati efficaci, l'inferenza e i benchmark pertinenti ha precedenza. Provare alternative gratuite (ASUS/CPU quando sensato, piccole prove, software compatibile) prima di dichiarare il blocco.
+2. **LABORATORIO — solo se il modello è realmente bloccato** da indisponibilità di GPU, accesso locale, dati o autorizzazioni. Lavorare su un pezzo strettamente riutilizzabile per lo stesso modello (ripresa checkpoint, misurazione, qualità dati, compatibilità): niente UI, dashboard o infrastrutture decorative.
+3. **GENESIS — ultima alternativa** se non ci sono attività modello/laboratorio utili eseguibili senza nuove risorse. Limitarsi a specifiche e componenti riutilizzabili dalla futura versione Windows/Linux, con avanzamento concreto e tracciato; non cominciare a costruire l'app completa.
+4. **RITORNO IMMEDIATO AL MODELLO** appena cade il blocco. Report ogni volta: attività svolta, risultato verificato, ragione del blocco e prossimo test sul modello.
+
+**Vincolo economico:** 0 € di nuove spese; nessun lavoro GPU Cloud a pagamento, acquisto di crediti o upgrade senza esplicita nuova autorizzazione. La quota Work inclusa nel piano va conservata scegliendo compiti piccoli e modelli efficienti: Work Desktop locale per usare l'ASUS, Codex per codice, un modello economico per diagnostica e uno più capace solo per problemi realmente difficili. Non affermare accesso all'ASUS quando Work opera soltanto sul suo computer Cloud.
+
+**Obiettivo futuro Computer Use AIVEXUS:** l'ASUS potrà ospitare un agente locale sotto autorizzazione esplicita, con privilegi minimi, esecuzione tracciata, timeout, limiti a RAM/VRAM/temperature e stop manuale. AIVEXUS potrà coordinare test e addestramento in autonomia controllata, così da ridurre il consumo di Work. Finché Computer Use non è implementato e testato, questa resta una capacità futura e non va presentata come disponibile.
+
 ## Principio di addestramento: qualità prima della velocità (10/11/2026)
 
 **Decisione vincolante:** scegliere metodi e dati che producano le **migliori capacità generaliste dimostrabili** per le risorse effettivamente disponibili, anche se richiedono più tempo. La rapidità serve per ottenere feedback, **non** è un criterio superiore alla qualità. La prima Chimera può nascere da un esperimento piccolo, ma non va proclamata riuscita perché sono stati eseguiti pochi step LoRA.

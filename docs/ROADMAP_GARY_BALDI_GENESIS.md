@@ -6,6 +6,24 @@
 
 **Regola dei nomi (confermata dall'utente):** fino alla maturità desiderata si utilizza **Chimera 1 → Chimera 2 → Chimera 3 → …**. Solo quando una Chimera dimostra capacità generaliste, ingegnosità, ragionamento e affidabilità al livello concordato, ottiene il nome d'onore **Gary Baldi**, in omaggio a Giuseppe Garibaldi, iniziando da **Gary Baldi 0.0.1 → 0.0.2 → 0.0.3…**. Il numero non determina da solo la promozione; nessuna data o soglia di generazione è imposta anticipatamente. La superiorità deve essere dimostrata con prove indipendenti.
 
+## Ordine di sviluppo vincolante — chiarimento 10/11/2026
+
+**1. MODELLO PRIMA.** Prima ottenere **Chimera 1 con pesi/adattatori realmente addestrati, inferenza verificata e primi confronti con la base**. Sono ammessi solo gli script e i controlli minimi necessari a produrre e testare il modello. La PR #2 contiene già una struttura di laboratorio minimale, **ma non è il risultato richiesto** e non autorizza a spostare l'attenzione su un laboratorio completo.
+
+**2. LABORATORIO DOPO.** Soltanto dopo un primo risultato reale progettare un laboratorio strutturato, riproducendo gli esperimenti efficaci, con gestione dati, benchmark, tracciabilità e controllo delle risorse.
+
+**3. GENESIS INFINE.** Una volta provato il procedimento, costruire il software autonomo Genesis per Windows e Linux, sfruttando esperienza e componenti validati.
+
+### Apprendimento dai video — possibilità futura, non blocco per Chimera 1
+
+- **Prima modalità (text-only):** ricavare da filmati autorizzati trascrizioni e descrizioni accurate, trasformandole in esempi di addestramento. Il modello impara dai **testi**, non vede il video né comprende il movimento direttamente.
+- **Modalità visiva:** integrare encoder visivo e addestramento multimodale con fotogrammi, audio, timestamp, didascalie e domande/risposte per legare sequenze visive e significato.
+- **Modalità temporale avanzata:** per azioni, causalità e dinamiche, valutare un'architettura video-aware con campionamento temporale e dati etichettati, confrontandola con semplici modelli visione-linguaggio.
+- **Verifiche:** misurare se migliora davvero la comprensione e generalizzazione su filmati nuovi; non confondere il recupero di didascalie con l'apprendimento visivo.
+- **Vincoli:** fonti utilizzabili legalmente, licenze e termini di piattaforma, diritti d'autore, consenso e privacy dei soggetti ripresi, costi e memoria GPU. L'ASUS con 8 GB VRAM può iniziare con elaborazione preliminare/esperimenti leggeri; training video su larga scala richiederà probabilmente Cloud/GPU più potenti.
+
+**Scelta operativa:** non introdurre adesso la pipeline video se ritarda l'ottenimento di Chimera 1; registrarla fra le opportunità per le generazioni successive.
+
 ## Chimera 1, 2, 3… — modelli sperimentali reali
 
 ### 1. Obiettivo

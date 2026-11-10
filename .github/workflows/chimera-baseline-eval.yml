@@ -52,7 +52,9 @@ jobs:
         run: |
           python -c "from huggingface_hub import snapshot_download; snapshot_download(repo_id='Qwen/Qwen3-0.6B', local_dir='inputs/qwen-original', allow_patterns=['*.json','*.safetensors','*.model','tokenizer*','merges.txt','vocab.json'])"
       - name: Convert original model using same GGUF tools
-        run: python llama.cpp/convert_hf_to_gguf.py inputs/qwen-original --outfile outputs/qwen-original-f16.gguf --outtype f16
+        run: |
+          mkdir -p outputs
+          python llama.cpp/convert_hf_to_gguf.py inputs/qwen-original --outfile outputs/qwen-original-f16.gguf --outtype f16
       - name: Quantise unchanged base with same Q4_K_M scheme
         run: llama.cpp/build/bin/llama-quantize outputs/qwen-original-f16.gguf outputs/qwen-original-q4_k_m.gguf Q4_K_M
       - name: Evaluate exact same held-out questions with both models

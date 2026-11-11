@@ -1,0 +1,56 @@
+name: Chimera 1 - real SFT data gate (zero cost)
+on:
+  push:
+    branches: ['chimera/007-real-dataset-validation']
+    paths:
+      - '.github/workflows/chimera-real-data-gate.yml'
+      - 'src/chimera_lab/prepare_sft.py'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify-public-training-data:
+    runs-on: ubuntu-latest
+    timeout-minutes: 75
+    env:
+      HF_HUB_DISABLE_TELEMETRY: '1'
+      TOKENIZERS_PARALLELISM: 'false'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install free public dataset loaders (no ML model download)
+        run: |
+          python -m pip install --no-cache-dir -e '.[data]'
+          python -m pip freeze | grep -E '^(datasets|huggingface.hub|pyarrow)=='
+      - name: Validate actual Aya / OASST1 / GSM8K / MetaMathQA data
+        run: |
+          python -u -m chimera_lab.prepare_sft --per-lang 80 --dialogue-count 15 --math-count 160 --metamath-count 100 --eval-count 50
+          python -m chimera_lab validate-data --train-file data/chimera1_train.jsonl --eval-file data/chimera1_math_eval.jsonl
+      - name: Check minimum usable examples and held-out test integrity
+        run: |
+          python - <<'PY'
+          import json, pathlib, hashlib
+          m=json.loads(pathlib.Path('data/chimera1_train.manifest.json').read_text())
+          print(json.dumps(m, ensure_ascii=False, indent=2))
+          assert m['train_examples'] >= 190, 'Too few usable SFT examples'
+          assert m['held_out_math_examples'] == 50, 'Held-out test incomplete'
+          counts=m['counts_before_dedup']
+          assert all(counts.get('aya_'+k,0) >= 20 for k in ['ita','fra','eng']), 'Multilingual Aya source missing'
+          assert counts.get('gsm8k_train',0) >= 80, 'Math training source missing'
+          for filename,expected in [('data/chimera1_train.jsonl',m['train_sha256']),('data/chimera1_math_eval.jsonl',m['eval_sha256'])]:
+              actual=hashlib.sha256(pathlib.Path(filename).read_bytes()).hexdigest()
+              assert actual==expected, filename
+          print('PASS: real public datasets loaded, split/dedup and manifest SHA256 verified')
+          PY
+      - name: Archive manifest only, not third-party datasets
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: chimera1-real-sft-data-manifest
+          path: data/chimera1_train.manifest.json
+          retention-days: 30
+          if-no-files-found: warn

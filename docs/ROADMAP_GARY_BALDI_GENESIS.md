@@ -51,6 +51,37 @@
 
 **Scelta operativa:** non introdurre adesso la pipeline video se ritarda l'ottenimento di Chimera 1; registrarla fra le opportunità per le generazioni successive.
 
+## Decisione del 12 novembre 2026 — pacchetti incrementali di intelligenza pratica
+
+**Visione del proprietario:** a ogni generazione recuperare pacchetti di esperienze e capacità verificabili, inizialmente piccoli e poi anche più grandi, per costruire progressivamente Chimera e arrivare, **solo a maturità dimostrata**, a Gary Baldi. Priorità al **saper fare** (ragionamento, pianificazione, uso di strumenti, strategie, auto-correzione, generalizzazione), non all'accumulo indiscriminato di cultura nozionistica: conoscenza aggiornata e RAG possono restare esterni, con accesso verificabile quando necessario.
+
+**Il "pacchetto" non è sempre un file di pesi sommabile ad altri.** Distinguere esplicitamente:
+1. **Esperienze e dataset**: dimostrazioni, traiettorie osservazione→azione→risultato, scenari di successo/fallimento, preferenze di esecuzione e metadati di qualità/licenza. Possono crescere, essere selezionati e convertiti, ma non migliorano i pesi senza apprendimento.
+2. **Competenze procedurali e strumenti**: procedure verificate, programmi e moduli operativi condivisibili fra modelli. Rendono l'agente più capace come sistema senza far credere che il modello abbia acquisito quella capacità internamente.
+3. **Competenze apprese nei pesi**: LoRA/QLoRA, fine-tuning, distillazione da insegnanti autorizzati, RL con feedback verificabile, ed eventualmente merging **solo** di modelli/adapter compatibili. Ogni candidata deve avere benchmark e rollback.
+4. **Prove indipendenti**: suite di attività nuove, separata da training e retrieval, che misuri capacità reali e trasferimento a compiti non visti. La dimensione del pacchetto non equivale a intelligenza.
+
+### Curriculum cumulativo proposto, da adattare all'evidenza
+
+- **A. Fondamenta operative:** ragionamento multi-step, puzzle, logica, pianificazione, revisione e correzione autonoma su scenari verificabili.
+- **B. Computer Use Windows:** lettura dello schermo e delle UI, mouse/tastiera, 2048 e Car Jam su WEmulDroid; ogni decisione deve essere del vero modello e ogni esito verificato indipendentemente.
+- **C. Tool use/autonomia:** browser, file, editor, coding, debugging, test e recupero errori, con strumenti autorizzati e senza sequenze rigidamente predefinite.
+- **D. Trasferimento generalista:** affrontare software, giochi e problemi nuovi, concatenare abilità, progettare piani alternativi, verificare e generalizzare. Comprensione multilingue necessaria come interfaccia, non priorità nozionistica.
+- **E. Ulteriori cicli:** acquisire pacchetti più grandi e più difficili **solo quando** il precedente ha aumentato risultati riproducibili e non introduce regressioni rilevanti. Il numero di livelli non è prefissato.
+
+### Ciclo di incorporazione
+
+`scoperta → controllo licenza/provenienza → filtraggio/dedup → formato condiviso → baseline → addestramento o retrieval → prova held-out → regressioni/forgetting → promozione o scarto → checkpoint`
+
+- Mantenere un **registro capacità** per generazione: compito, metrica, baseline, fonte, modello insegnante quando lecito, versione, hardware, risultati nuovi, abilità perdute, archiviazione e rollback.
+- Contrastare il **catastrophic forgetting** con replay selezionato di abilità precedenti, curriculum bilanciato, distillazione/regularizzazione quando utili e prove su compiti vecchi e nuovi. Non dichiarare acquisita una capacità se peggiorano significativamente quelle già possedute.
+- Per la visione di prodotto di **un unico modello principale con pesi reali**, le librerie e gli specialisti sono ausili di training/esecuzione; il trasferimento nella Chimera candidata richiede training e convalida. Evitare di spacciare un insieme di modelli instradati per un singolo modello superiore.
+- Raccogliere esperienze AIVEXUS tramite un contratto di esportazione **esplicito**, dati sintetici/di test o consenso appropriato, senza trasferimento automatico di screenshot, chat, account o altre informazioni personali.
+- Iniziare con campioni e capacità realistiche sull'ASUS (RTX 4060 8 GB) e budget 0 €; i pacchetti possono diventare più grandi in futuro e il limite hardware attuale non è definitivo. Controllare sempre termini di modelli, pesi e dataset prima della distribuzione.
+- **Ordine preesistente immutato:** ottenere prima Chimera 1 reale, poi laboratorio strutturato, poi applicazione Genesis. I nuovi pacchetti non sono un motivo per rinviare la prima verifica dei pesi.
+
+**Tracciamento:** [Genesis #12 — dataset ed esperienze esterne](https://github.com/pilialvu75-hue/Genesis/issues/12), [Chimera 1 #1](https://github.com/pilialvu75-hue/Genesis/issues/1), [AIVEXUS Computer Use #1115](https://github.com/pilialvu75-hue/Ai-orchestrator-riserva/issues/1115).
+
 ## Chimera 1, 2, 3… — modelli sperimentali reali
 
 ### 1. Obiettivo

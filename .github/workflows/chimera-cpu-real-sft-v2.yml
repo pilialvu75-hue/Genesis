@@ -1,0 +1,51 @@
+name: Chimera 1 - real multilingual CPU SFT v2 (zero cost)
+on:
+  push:
+    branches: ['chimera/008-sft-cpu-real-data-v2']
+    paths:
+      - '.github/workflows/chimera-cpu-real-sft-v2.yml'
+      - 'src/chimera_lab/cpu_sft_v2.py'
+      - 'tests/test_cpu_sft_v2.py'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  real-weights-cpu:
+    runs-on: ubuntu-latest
+    timeout-minutes: 110
+    env:
+      HF_HUB_DISABLE_XET: '1'
+      HF_HUB_DISABLE_TELEMETRY: '1'
+      TOKENIZERS_PARALLELISM: 'false'
+      OMP_NUM_THREADS: '4'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install free CPU PyTorch
+        run: python -m pip install --no-cache-dir torch==2.5.1 --index-url https://download.pytorch.org/whl/cpu
+      - name: Install transformers, PEFT, datasets (all local/free)
+        run: |
+          python -m pip install --no-cache-dir -e '.[data]'
+          python -m pip install --no-cache-dir transformers==4.57.1 peft==0.17.1 accelerate==1.11.0 safetensors==0.6.2
+      - name: Run deterministic code-level dataset and scoring tests
+        run: python -m unittest tests.test_cpu_sft_v2 -v
+      - name: Load real Aya/OASST1/GSM8K/MetaMathQA examples, no private data
+        run: |
+          python -u -m chimera_lab.prepare_sft --per-lang 80 --dialogue-count 15 --math-count 160 --metamath-count 100 --eval-count 50
+          python -m chimera_lab validate-data --train-file data/chimera1_train.jsonl --eval-file data/chimera1_math_eval.jsonl
+      - name: Check resource budget
+        run: free -h && df -h .
+      - name: Train REAL LoRA weights, compare 6 held-out tasks, reload
+        run: python -u -m chimera_lab.cpu_sft_v2 --steps 240 --max-length 192
+      - name: Upload verified LoRA and report only after success
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: chimera1-multilingual-real-data-240step-cpu-pilot
+          path: outputs/chimera1_cpu_real_sft_v2/
+          retention-days: 30
+          if-no-files-found: error
